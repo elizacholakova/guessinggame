@@ -1,0 +1,55 @@
+import java.util.Scanner;
+import java.util.Random;
+public class Main {
+    public static void main(String[] args) {
+        Scanner read= new Scanner(System.in);
+        Random rand = new Random();
+        int answer=rand.nextInt(100)+1;
+
+
+        System.out.println("Welcome to the GuessingGame. Try to guess the mystery number between 1 and 100!");
+        System.out.println("Type 'quit' to exit. Have fun!");
+        System.out.println("Enter your guess:");
+        int num=0;
+        int attempts=1;
+        while(num!=answer){
+            if(read.hasNextInt()){
+                num=read.nextInt();
+                if(num>=1 && num<=100){
+                    if(answering(answer, num).equals("larger")||answering(answer, num).equals("smaller")){
+                        System.out.println("Your guess is "+answering(answer, num)+" than the generated number.");
+                    }else{
+                        System.out.println("You guessed correctly! It took you "+ attempts +" attempts.");
+                        break;
+                    }
+                    attempts++;
+                    System.out.print("Try again: ");
+                }else{
+                    System.out.println("Please, enter only numbers from 1 to 100!");
+                }
+            }
+            if(read.hasNextLine()){
+                String command=read.nextLine();
+                if(command.equals("quit")){
+                    System.out.println("Good game! The mystery number was " + answer);
+                    break;
+                }else{
+                    if(!command.isEmpty()){
+                        System.out.println("Error. Please enter a valid guess or type 'quit'");
+                    }
+                }
+            }
+        }
+    }
+    public static String answering(int answer, int guess){
+        if(answer<guess){
+            return "larger";
+        }else{
+            if(answer>guess){
+                return "smaller";
+            }else{
+                return "correct";
+            }
+        }
+    }
+}
